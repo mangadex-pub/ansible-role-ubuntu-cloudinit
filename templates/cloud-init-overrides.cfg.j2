@@ -1,0 +1,5 @@
+# {{ ansible_managed }} by role {{ role_name }}
+
+{% for cloud_init_cfg_override in (cloud_init_cfg_overrides | dict2items) %}
+{{ cloud_init_cfg_override.key }}: {{ cloud_init_cfg_override.value }}
+{% endfor %}

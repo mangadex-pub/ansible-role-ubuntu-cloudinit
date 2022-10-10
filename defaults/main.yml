@@ -1,0 +1,9 @@
+cloud_init_home_dir: "/etc/cloud"
+cloud_init_configs_dir: "{{ cloud_init_home_dir }}/cloud.cfg.d"
+
+# cloud_init_single_source: NoCloud
+
+cloud_init_cfg_overrides: { }
+# package_update: true
+# package_upgrade: true
+# package_reboot_if_required: true

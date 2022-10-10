@@ -1,0 +1,32 @@
+- name: Reset cloud-init cache
+  ansible.builtin.command:
+    cmd: cloud-init clean --logs
+  changed_when: true
+
+- name: Dispel subiquity's cloud-init overrides
+  loop:
+    - "/etc/netplan/00-installer-config.yaml"
+    - "{{ cloud_init_configs_dir }}/99-installer.cfg"
+    - "{{ cloud_init_configs_dir }}/subiquity-disable-cloudinit-networking.cfg"
+  loop_control:
+    loop_var: subiquity_config_file
+  ansible.builtin.file:
+    path: "{{ subiquity_config_file }}"
+    state: absent
+
+- name: Force subset of cloud-init datasources
+  when: cloud_init_single_source is defined
+  ansible.builtin.debconf:
+    name: cloud-init
+    question: cloud-init/datasources
+    vtype: multiselect
+    value: "{{ cloud_init_single_source }}, None"
+
+- name: Install cloud-init configuration overrides
+  ansible.builtin.template:
+    src: "cloud-init-overrides.cfg.j2"
+    dest: "{{ cloud_init_configs_dir }}/99-cloud-init-overrides.cfg"
+    owner: root
+    group: root
+    mode: 0644
+    force: true

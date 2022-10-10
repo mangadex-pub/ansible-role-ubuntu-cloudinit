@@ -1,0 +1,19 @@
+- name: Delete install artifacts
+  loop:
+    - /root/snap
+    - /var/log/installer
+  loop_control:
+    loop_var: install_artifact
+  ansible.builtin.file:
+    path: "{{ install_artifact }}"
+    state: absent
+
+- name: Vacuum journal
+  loop:
+    - journalctl --rotate
+    - journalctl --vacuum-time=1s
+  loop_control:
+    loop_var: vacuum_cmd
+  ansible.builtin.command:
+    cmd: "{{ vacuum_cmd }}"
+  changed_when: true

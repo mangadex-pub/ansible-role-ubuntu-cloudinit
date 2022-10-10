@@ -1,0 +1,8 @@
+- name: Re-bootstrap cloud-init
+  ansible.builtin.include_tasks: cloud-init.yml
+
+- name: Reset machine identity
+  ansible.builtin.include_tasks: machine-identity.yml
+
+- name: Cleanup install artifacts
+  ansible.builtin.include_tasks: cleanup-install-artifacts.yml

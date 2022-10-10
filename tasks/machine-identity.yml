@@ -1,0 +1,21 @@
+- name: Truncate machine-id
+  ansible.builtin.command:
+    cmd: truncate -s 0 /etc/machine-id
+  changed_when: true
+
+- name: Ensure no real dbus machine-id file
+  ansible.builtin.file:
+    path: /var/lib/dbus/machine-id
+    state: absent
+    owner: root
+    group: root
+    mode: 0644
+
+- name: Make dbus machine-id a symlink to canonical machine-id
+  ansible.builtin.file:
+    path: /var/lib/dbus/machine-id
+    state: link
+    src: /etc/machine-id
+    owner: root
+    group: root
+    mode: 0644

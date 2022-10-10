@@ -1,0 +1,17 @@
+dependencies: []
+
+galaxy_info:
+  role_name: sysfs
+  author: mangadex
+  description: Persistently set sysfs values on the host
+  license: "license (MIT)"
+  min_ansible_version: "5.0"
+  platforms:
+    - name: Ubuntu
+      versions:
+        - focal
+        - jammy
+  galaxy_tags:
+    - system
+    - ubuntu
+    - cloudinit
