@@ -1,9 +1,9 @@
 dependencies: []
 
 galaxy_info:
-  role_name: sysfs
+  role_name: ubuntu_cloudinit
   author: mangadex
-  description: Persistently set sysfs values on the host
+  description: Prepare a Ubuntu installation to be cloud-init aware
   license: "license (MIT)"
   min_ansible_version: "5.0"
   platforms:
